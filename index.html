@@ -730,82 +730,133 @@ The balanced curriculum of theory and practice prepared me to tackle real-world 
     <!-- </section>/Testimonials Section -->
 
     <!-- Contact Section -->
+
     <section id="contact" class="contact section">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>I’d love to connect with you! Feel free to reach out for projects, collaborations, or opportunities.</p>
-      </div><!-- End Section Title -->
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Contact</h2>
+    <p>I’d love to connect with you! Feel free to reach out for projects, collaborations, or opportunities.</p>
+  </div><!-- End Section Title -->
 
-      <div class="container" data-aos="fade" data-aos-delay="100">
+  <div class="container" data-aos="fade" data-aos-delay="100">
+    <div class="row gy-4">
 
-        <div class="row gy-4">
-
-          <div class="col-lg-4">
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
-              <i class="bi bi-geo-alt flex-shrink-0"></i>
-              <div>
-                <h3>Address</h3>
-                <p>Surat, Gujarat, PIN 394305</p>
-              </div>
-            </div><!-- End Info Item -->
-
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-              <i class="bi bi-telephone flex-shrink-0"></i>
-              <div>
-                <h3>Call Us</h3>
-                <p>+91 95690 82823</p>
-              </div>
-            </div><!-- End Info Item -->
-
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-              <i class="bi bi-envelope flex-shrink-0"></i>
-              <div>
-                <h3>Email Us</h3>
-                <p>harshpandey7754@gmail.com</p>
-              </div>
-            </div><!-- End Info Item -->
-
+      <!-- Contact Info -->
+      <div class="col-lg-4">
+        <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+          <i class="bi bi-geo-alt flex-shrink-0"></i>
+          <div>
+            <h3>Address</h3>
+            <p>Surat, Gujarat, PIN 394305</p>
           </div>
+        </div><!-- End Info Item -->
 
-          <div class="col-lg-8">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-              <div class="row gy-4">
+        <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+          <i class="bi bi-telephone flex-shrink-0"></i>
+          <div>
+            <h3>Call Us</h3>
+            <p>+91 95690 82823</p>
+          </div>
+        </div><!-- End Info Item -->
 
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                </div>
+        <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+          <i class="bi bi-envelope flex-shrink-0"></i>
+          <div>
+            <h3>Email Us</h3>
+            <p>harshpandey7754@gmail.com</p>
+          </div>
+        </div><!-- End Info Item -->
+      </div><!-- End Contact Info -->
 
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                </div>
+      <!-- Contact Form -->
+      <div class="col-lg-8">
 
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                </div>
+  <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+    
+    <!-- Your Access Key -->
+    <input type="hidden" name="access_key" value="fc831d67-5ec2-4f3d-8ebd-102b6fe9ca2c" />
 
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <!-- <div class="error-message"></div> -->
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
-                </div>
-
-              </div>
-            </form>
-          </div><!-- End Contact Form -->
-
-        </div>
-
+    <div class="row gy-4">
+      <div class="col-md-6">
+        <label for="name-field" class="pb-2">Your Name</label>
+        <input type="text" name="name" id="name-field" class="form-control" required />
       </div>
 
-    </section><!-- /Contact Section -->
+      <div class="col-md-6">
+        <label for="email-field" class="pb-2">Your Email</label>
+        <input type="email" class="form-control" name="email" id="email-field" required />
+      </div>
+
+      <div class="col-md-12">
+        <label for="subject-field" class="pb-2">Subject</label>
+        <input type="text" class="form-control" name="subject" id="subject-field" required />
+      </div>
+
+      <div class="col-md-12">
+        <label for="message-field" class="pb-2">Message</label>
+        <textarea class="form-control" name="message" rows="10" id="message-field" required></textarea>
+      </div>
+
+      <!-- Honeypot Spam Protection -->
+      <input type="checkbox" name="botcheck" style="display:none;" />
+
+      <div class="col-md-12 text-center">
+        <div id="loading" style="display:none;">Loading...</div>
+        <div id="error-message" style="display:none; color:red;">❌ Something went wrong. Please try again.</div>
+        <div id="sent-message" style="display:none; color:green;">✅ Your message has been sent. Thank you!</div>
+        <button type="submit">Send Message</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Script to handle API response -->
+<script>
+  const form = document.getElementById("contact-form");
+  const loading = document.getElementById("loading");
+  const errorMsg = document.getElementById("error-message");
+  const sentMsg = document.getElementById("sent-message");
+
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    loading.style.display = "block";
+    errorMsg.style.display = "none";
+    sentMsg.style.display = "none";
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await response.json();
+
+      loading.style.display = "none";
+
+      if (result.success) {
+        sentMsg.style.display = "block";
+        form.reset();
+      } else {
+        errorMsg.style.display = "block";
+      }
+    } catch (error) {
+      loading.style.display = "none";
+      errorMsg.style.display = "block";
+    }
+  });
+</script>
+
+
+    </div><!-- End Row -->
+  </div><!-- End Container -->
+
+</section><!-- End Contact Section -->
+
+    <!-- /Contact Section -->
 
   </main>
 
