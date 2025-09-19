@@ -1,10 +1,10 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 require __DIR__ . '/../phpmailer/src/Exception.php';
 require __DIR__ . '/../phpmailer/src/PHPMailer.php';
 require __DIR__ . '/../phpmailer/src/SMTP.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name    = htmlspecialchars($_POST['name']);
@@ -15,18 +15,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail = new PHPMailer(true);
 
     try {
-        // Server settings
+        // SMTP Settings
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'harshpandey7754@gmail.com';   // <-- apna Gmail
+        $mail->Username   = 'harshpandey7754@gmail.com';   // <-- Apna Gmail
         $mail->Password   = 'ruxb dqbc szwu vpxs';         // <-- Gmail App Password
         $mail->SMTPSecure = 'tls';
         $mail->Port       = 587;
 
-        // Sender & Recipient
-        $mail->setFrom('harshpandey7754@gmail.com', 'Website Contact Form'); 
-        $mail->addReplyTo($email, $name); // visitor ka email reply ke liye use hoga
+        // 🔹 Debug Mode ON
+        $mail->SMTPDebug = 0; 
+        $mail->Debugoutput = 'html';
+
+        // Sender & Receiver
+        $mail->setFrom('harshpandey7754@gmail.com', 'Website Contact Form');
+        $mail->addReplyTo($email, $name); 
         $mail->addAddress('harshpandey7754@gmail.com'); // jaha mail receive karna hai
 
         // Content
@@ -38,13 +42,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p><b>Email:</b> $email</p>
             <p><b>Message:</b><br>$message</p>
         ";
-
         $mail->AltBody = "Name: $name\nEmail: $email\nMessage: $message";
 
         $mail->send();
-        echo "OK"; // Ajax ke liye response
+        echo "✅ Your message has been sent. Thank you!";
+
     } catch (Exception $e) {
-        echo "Error: Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        echo " Message could not be sent.: {$mail->ErrorInfo}";
     }
+} else {
+    echo " Invalid request!";
 }
-?>
